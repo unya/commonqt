@@ -73,11 +73,8 @@
           (lambda (stack-item)
             (funcall thunk (get-value stack-item) type))))))
 
-(defun nonconst-name (type)
-  (cl-ppcre:regex-replace "^const\\s+(.*)\\s*&$" (qtype-name type) "\\1"))
-
 (defun unmarshaller-2 (type)
-  (let ((name (nonconst-name type)))
+  (let ((name (qtype-name (qtype-deconstify type))))
     (or (get-static-unmarshaller name)
         (case (qtype-stack-item-slot type)
           (class (lambda (value type) (%qobject (qtype-class type) value)))
