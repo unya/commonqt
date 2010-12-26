@@ -538,7 +538,9 @@
 		     bench-new-qcolor/4
 		     bench-call-parent
 		     bench-call-setparent0
-		     bench-call-setparent))
+		     ;; disable setparent; it hangs for a long time on
+		     ;; SBCL, which is otherwise fast.
+		     #+nil bench-call-setparent))
 	(format t "(~A ~30T~7D)~%" fun (best-of-3-funcall fun)))
       ;; give the interpreted functions their own repeat count to avoid
       ;; long delays:
@@ -550,7 +552,7 @@
 		       bench-interpret-new-qcolor/4
 		       bench-interpret-call-parent
 		       bench-interpret-call-setparent0
-		       bench-interpret-call-setparent))
+		       #+nil bench-interpret-call-setparent))
 	  (format t "(~A ~30T~6D)~%" fun (best-of-3-funcall fun))))
       ;;
       ;; The /CFFI tests do not benchmark CommonQt as such; they show
@@ -571,7 +573,7 @@
 		       bench-new-qcolor4/cffi
 		       bench-call-parent/cffi
 		       bench-call-setparent0/cffi
-		       bench-call-setparent/cffi))
+		       #+nil bench-call-setparent/cffi))
 	  (format t "(~A ~30T~6D)~%" fun (best-of-3-funcall fun)))))
     (format s "))~%")))
 
