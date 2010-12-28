@@ -368,8 +368,9 @@
   (let* ((module-data (data-ref <module>))
          (cstrings (data-methodnames module-data))
          (n (data-nmethodnames module-data))
-         (table (make-array n)))
-    (dotimes (i n)
+         (n+1 (1+ n))
+         (table (make-array n+1)))
+    (dotimes (i n+1)
       (setf (elt table i) (cffi:mem-aref cstrings :string i)))
     (setf (svref *string-table-table* <module>) table)))
 
